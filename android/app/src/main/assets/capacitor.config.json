@@ -1,0 +1,15 @@
+{
+	"appId": "com.sahabatsalat.game",
+	"appName": "Sahabat Salat",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"android": {
+		"backgroundColor": "#064e3b",
+		"allowMixedContent": false,
+		"captureInput": true,
+		"webContentsDebuggingEnabled": false
+	},
+	"server": {
+		"androidScheme": "https"
+	}
+}

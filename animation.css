@@ -1,0 +1,412 @@
+/* ==================== ANIMATION KEYFRAMES ==================== */
+
+@keyframes ringSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.07); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.player-token.is-active-turn .token-ring {
+  animation: ringSpin 4s linear infinite;
+}
+
+/* Walking hop and limb swing */
+@keyframes tokenHop {
+  0% { transform: translateY(0) scale(1, 1); }
+  35% { transform: translateY(-28%) scale(0.95, 1.07); }
+  75% { transform: translateY(-6%) scale(1.03, 0.96); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+
+.player-token.is-walking .token-inner {
+  animation: tokenHop 0.22s ease-out;
+}
+
+@keyframes limbWalkLeft {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(18deg); }
+}
+
+@keyframes limbWalkRight {
+  0%, 100% { transform: rotate(18deg); }
+  50% { transform: rotate(-16deg); }
+}
+
+.player-token.is-walking .avatar-arm-left,
+.player-token.is-walking .avatar-leg-right {
+  animation: limbWalkLeft 0.24s ease-in-out infinite;
+}
+
+.player-token.is-walking .avatar-arm-right,
+.player-token.is-walking .avatar-leg-left {
+  animation: limbWalkRight 0.24s ease-in-out infinite;
+}
+
+/* Ladder climbing limbs */
+@keyframes limbClimbA {
+  0%, 100% { transform: translateY(-3px) rotate(-28deg); }
+  50% { transform: translateY(3px) rotate(12deg); }
+}
+
+@keyframes limbClimbB {
+  0%, 100% { transform: translateY(3px) rotate(12deg); }
+  50% { transform: translateY(-3px) rotate(-28deg); }
+}
+
+@keyframes climbBodySway {
+  0%, 100% { transform: rotate(-5deg) scale(1.04); }
+  50% { transform: rotate(5deg) scale(1.04); }
+}
+
+.player-token.is-climbing .token-inner {
+  animation: climbBodySway 0.34s ease-in-out infinite;
+}
+
+.player-token.is-climbing .avatar-arm-left,
+.player-token.is-climbing .avatar-leg-right {
+  animation: limbClimbA 0.32s ease-in-out infinite;
+}
+
+.player-token.is-climbing .avatar-arm-right,
+.player-token.is-climbing .avatar-leg-left {
+  animation: limbClimbB 0.32s ease-in-out infinite;
+}
+
+/* Swallowed / Emerged effects */
+@keyframes swallowShrink {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  45% { transform: scale(1.15) rotate(-12deg); opacity: 1; }
+  100% { transform: scale(0.05) rotate(220deg); opacity: 0; }
+}
+
+@keyframes tailPopOut {
+  0% { transform: scale(0.1) rotate(-180deg); opacity: 0; }
+  65% { transform: scale(1.22) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.player-token.is-swallowed .token-inner {
+  animation: swallowShrink 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.player-token.is-popping-out .token-inner {
+  animation: tailPopOut 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ==================== LADDER ANIMATIONS ==================== */
+.ladder-group {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: filter 0.25s ease;
+}
+
+@keyframes ladderSwayActive {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-2.8deg) scale(1.03); }
+  50% { transform: rotate(2.6deg) scale(1.05); }
+  75% { transform: rotate(-1.8deg) scale(1.03); }
+}
+
+.ladder-group.is-active {
+  animation: ladderSwayActive 0.45s ease-in-out infinite;
+  filter: url(#ladderGlow);
+}
+
+.ladder-glow-aura {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.ladder-group.is-active .ladder-glow-aura {
+  opacity: 0.9;
+}
+
+/* ==================== SNAKE ANIMATIONS ==================== */
+.snake-group {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes snakeBodyBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015, 0.99); }
+}
+
+.snake-body-path {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snakeBodyBreathe 3.4s ease-in-out infinite;
+}
+
+@keyframes snakeSquirmActive {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-4px, 3px) scale(1.03, 0.97); }
+  50% { transform: translate(4px, -3px) scale(0.97, 1.03); }
+  75% { transform: translate(-3px, -2px) scale(1.02, 0.98); }
+}
+
+.snake-group.is-eating .snake-body-path {
+  animation: snakeSquirmActive 0.28s ease-in-out infinite;
+}
+
+.snake-head-group {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.snake-group.is-alert .snake-head-group {
+  transform: translateY(-10px) scale(1.16);
+}
+
+.snake-group.is-eating .snake-head-group {
+  transform: translateY(-14px) scale(1.25) rotate(-8deg);
+}
+
+@keyframes eyeBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
+}
+
+.snake-eye-pupil {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eyeBlink 3.8s ease-in-out infinite;
+}
+
+@keyframes eyeLookAround {
+  0%, 100% { transform: translate(0, 0) scaleY(1); }
+  25% { transform: translate(-2.5px, -1px) scaleY(0.15); }
+  50% { transform: translate(2.5px, 0) scaleY(1.15); }
+  75% { transform: translate(0, -1px) scaleY(1.15); }
+}
+
+.snake-group.is-alert .snake-eye-pupil,
+.snake-group.is-eating .snake-eye-pupil {
+  animation: eyeLookAround 0.55s ease-in-out infinite;
+}
+
+.snake-jaw-lower {
+  transform-box: fill-box;
+  transform-origin: top center;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.snake-group.is-mouth-open .snake-jaw-lower {
+  transform: translateY(13px) scaleY(1.45);
+}
+
+.snake-mouth-cavity {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.snake-group.is-mouth-open .snake-mouth-cavity {
+  opacity: 1;
+}
+
+@keyframes tongueFlick {
+  0%, 100% { transform: scaleY(0.7) translateY(0); }
+  50% { transform: scaleY(1.35) translateY(4px); }
+}
+
+.snake-tongue {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: tongueFlick 1.6s ease-in-out infinite;
+}
+
+.snake-group.is-alert .snake-tongue,
+.snake-group.is-eating .snake-tongue {
+  animation: tongueFlick 0.28s ease-in-out infinite;
+}
+
+.snake-swallow-bulge {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.snake-group.is-digesting .snake-swallow-bulge {
+  opacity: 1;
+}
+
+/* ==================== DICE 3D CSS KEYFRAME ANIMATIONS ==================== */
+@keyframes diceJumpBounce {
+  0% {
+    transform: translate3d(115px, 125px, 0) scale(0.88);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  22% {
+    transform: translate3d(42px, -138px, 60px) scale(1.38);
+    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+  44% {
+    transform: translate3d(-10px, 4px, 0) scale(1.05, 0.93);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  56% {
+    transform: translate3d(-6px, -58px, 24px) scale(1.16);
+    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+  68% {
+    transform: translate3d(2px, 2px, 0) scale(1.04, 0.95);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  77% {
+    transform: translate3d(1px, -24px, 10px) scale(1.07);
+    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+  86% {
+    transform: translate3d(0, 1px, 0) scale(1.02, 0.97);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  93% {
+    transform: translate3d(0, -8px, 4px) scale(1.02);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes diceShadowJump {
+  0% {
+    transform: translate3d(115px, 165px, 0) scale(0.85);
+    opacity: 0.45;
+  }
+  22% {
+    transform: translate3d(42px, 52px, 0) scale(0.46);
+    opacity: 0.22;
+  }
+  44% {
+    transform: translate3d(-10px, 44px, 0) scale(1.08);
+    opacity: 0.78;
+  }
+  56% {
+    transform: translate3d(-6px, 44px, 0) scale(0.68);
+    opacity: 0.42;
+  }
+  68% {
+    transform: translate3d(2px, 43px, 0) scale(1.04);
+    opacity: 0.76;
+  }
+  77% {
+    transform: translate3d(1px, 43px, 0) scale(0.84);
+    opacity: 0.56;
+  }
+  86% {
+    transform: translate3d(0, 42px, 0) scale(1.02);
+    opacity: 0.74;
+  }
+  93% {
+    transform: translate3d(0, 42px, 0) scale(0.92);
+    opacity: 0.64;
+  }
+  100% {
+    transform: translate3d(0, 42px, 0) scale(1);
+    opacity: 0.72;
+  }
+}
+
+@keyframes diceCubeTumble {
+  0% {
+    transform: rotateX(var(--rx-0, 25deg)) rotateY(var(--ry-0, 35deg)) rotateZ(var(--rz-0, 0deg));
+  }
+  26% {
+    transform: rotateX(var(--rx-1, 310deg)) rotateY(var(--ry-1, 260deg)) rotateZ(var(--rz-1, 45deg));
+  }
+  58% {
+    transform: rotateX(var(--rx-2, 610deg)) rotateY(var(--ry-2, 540deg)) rotateZ(var(--rz-2, -22deg));
+  }
+  82% {
+    transform: rotateX(var(--rx-3, 740deg)) rotateY(var(--ry-3, 705deg)) rotateZ(8deg);
+  }
+  100% {
+    transform: rotateX(var(--rx-end, 720deg)) rotateY(var(--ry-end, 720deg)) rotateZ(0deg);
+  }
+}
+
+@keyframes diceCubeStopBounce {
+  0% {
+    transform: rotateX(var(--rx-end, 0deg)) rotateY(var(--ry-end, 0deg)) scale3d(1.16, 0.85, 1.12);
+  }
+  32% {
+    transform: rotateX(calc(var(--rx-end, 0deg) + 7deg)) rotateY(calc(var(--ry-end, 0deg) - 6deg)) scale3d(0.92, 1.12, 0.95);
+  }
+  62% {
+    transform: rotateX(calc(var(--rx-end, 0deg) - 4deg)) rotateY(calc(var(--ry-end, 0deg) + 4deg)) scale3d(1.05, 0.96, 1.03);
+  }
+  82% {
+    transform: rotateX(calc(var(--rx-end, 0deg) + 2deg)) rotateY(calc(var(--ry-end, 0deg) - 2deg)) scale3d(0.98, 1.02, 0.99);
+  }
+  100% {
+    transform: rotateX(var(--rx-end, 0deg)) rotateY(var(--ry-end, 0deg)) scale3d(1, 1, 1);
+  }
+}
+
+.flying-dice-wrapper.is-rolling {
+  animation: diceJumpBounce 1.18s linear forwards;
+}
+
+.dice-shadow.is-rolling {
+  animation: diceShadowJump 1.18s linear forwards;
+}
+
+.dice-cube.is-rolling {
+  animation: diceCubeTumble 1.18s cubic-bezier(0.22, 0.8, 0.36, 1) forwards;
+}
+
+.dice-cube.is-settled {
+  animation: diceCubeStopBounce 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes diceResultPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14); }
+  70% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.flying-dice-wrapper.is-result-pop {
+  animation: diceResultPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPopIn {
+  0% { opacity: 0; transform: scale(0.88) translateY(16px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-card {
+  animation: modalPopIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes feedbackShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+@keyframes feedbackBounce {
+  0% { transform: scale(0.92); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.quiz-feedback.is-error {
+  animation: feedbackShake 0.4s ease;
+}
+
+.quiz-feedback.is-success {
+  animation: feedbackBounce 0.34s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bannerDrop {
+  0% { opacity: 0; transform: translate(-50%, -14px) scale(0.92); }
+  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+.board-banner {
+  animation: bannerDrop 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}

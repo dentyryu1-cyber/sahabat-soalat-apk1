@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Sahabat Salat – Petualangan Rukun Salat</title>
+    <meta
+      name="description"
+      content="Game edukasi ular tangga 2D interaktif tentang 13 Rukun Salat menurut Mazhab Syafi'i dengan dadu 3D terbang, tangga animasi, ular kartun lucu, kuis interaktif, dan efek suara."
+    />
+    <meta property="og:title" content="Sahabat Salat – Petualangan Rukun Salat" />
+    <meta
+      property="og:description"
+      content="Game edukasi ular tangga 2D interaktif tentang 13 Rukun Salat menurut Mazhab Syafi'i."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#065f46" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SahabatSalat" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/animation.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <!-- ==================== LOBBY / TITLE SCREEN ==================== -->
+      <section id="lobby-screen" class="screen lobby-screen is-active" aria-label="Menu Utama">
+        <div class="lobby-backdrop" aria-hidden="true">
+          <div class="islamic-pattern"></div>
+          <div class="lantern lantern-left"></div>
+          <div class="lantern lantern-right"></div>
+        </div>
+
+        <div class="lobby-container">
+          <header class="lobby-hero">
+            <div class="brand-emblem" aria-hidden="true">
+              <svg viewBox="0 0 96 96" class="emblem-svg">
+                <defs>
+                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fde68a" />
+                    <stop offset="50%" stop-color="#f59e0b" />
+                    <stop offset="100%" stop-color="#b45309" />
+                  </linearGradient>
+                  <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#10b981" />
+                    <stop offset="100%" stop-color="#064e3b" />
+                  </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="44" fill="url(#emeraldGrad)" stroke="url(#goldGrad)" stroke-width="4" />
+                <path
+                  d="M48 14 L55 24 L67 24 L62 35 L70 45 L60 53 L63 65 L51 64 L48 76 L45 64 L33 65 L36 53 L26 45 L34 35 L29 24 L41 24 Z"
+                  fill="rgba(255,255,255,0.12)"
+                />
+                <path
+                  d="M52 26 A18 18 0 1 0 66 56 A14 14 0 1 1 52 26 Z"
+                  fill="url(#goldGrad)"
+                />
+                <polygon points="62,28 64.5,33.5 70.5,34 66,38 67.5,44 62,40.5 56.5,44 58,38 53.5,34 59.5,33.5" fill="#fef3c7" />
+                <rect x="28" y="64" width="40" height="8" rx="4" fill="url(#goldGrad)" />
+              </svg>
+            </div>
+            <div class="hero-copy">
+              <p class="hero-kicker">Game Ular Tangga Edukasi Islami</p>
+              <h1 class="hero-title">Sahabat Salat</h1>
+              <p class="hero-subtitle">Petualangan 13 Rukun Salat · Mazhab Syafi'i</p>
+            </div>
+            <div class="lobby-top-actions">
+              <button type="button" id="install-app-btn" class="icon-pill-btn install-pill-btn" hidden>
+                <span aria-hidden="true">📲</span>
+                <span class="btn-label">Pasang App</span>
+              </button>
+              <button type="button" id="lobby-audio-btn" class="icon-pill-btn" aria-label="Pengaturan Suara">
+                <span class="audio-icon" aria-hidden="true">🔊</span>
+                <span class="btn-label">Suara</span>
+              </button>
+              <button type="button" id="open-guide-lobby-btn" class="icon-pill-btn">
+                <span aria-hidden="true">📖</span>
+                <span class="btn-label">13 Rukun</span>
+              </button>
+              <button type="button" id="open-leaderboard-btn" class="icon-pill-btn">
+                <span aria-hidden="true">🏆</span>
+                <span class="btn-label">Skor</span>
+              </button>
+            </div>
+          </header>
+
+          <main class="lobby-card">
+            <div class="lobby-section-head">
+              <div>
+                <h2 class="section-title">Pilih Jumlah & Karakter Pemain</h2>
+                <p class="section-desc">Bermain bersama 2 hingga 4 sahabat, jawab tantangan Rukun Salat, dan capai kotak Finis!</p>
+              </div>
+              <div class="player-count-tabs" role="group" aria-label="Jumlah Pemain">
+                <button type="button" class="count-tab is-selected" data-count="2">2 Pemain</button>
+                <button type="button" class="count-tab" data-count="3">3 Pemain</button>
+                <button type="button" class="count-tab" data-count="4">4 Pemain</button>
+              </div>
+            </div>
+
+            <div id="player-setup-grid" class="player-setup-grid"></div>
+
+            <div class="lobby-footer">
+              <div class="quick-rules-strip">
+                <span class="rule-item">🎲 Lempar dadu 1–6</span>
+                <span class="rule-sep" aria-hidden="true">·</span>
+                <span class="rule-item">🪜 Tangga naik ke atas</span>
+                <span class="rule-sep" aria-hidden="true">·</span>
+                <span class="rule-item">🐍 Ular lucu bawa turun</span>
+                <span class="rule-sep" aria-hidden="true">·</span>
+                <span class="rule-item">⭐ Kotak Bintang = Kuis Rukun Salat</span>
+              </div>
+              <button type="button" id="start-game-btn" class="btn-primary-game btn-start">
+                <span>Mulai Petualangan</span>
+                <span class="btn-arrow" aria-hidden="true">▶</span>
+              </button>
+            </div>
+          </main>
+        </div>
+      </section>
+
+      <!-- ==================== ACTIVE GAMEPLAY SCREEN ==================== -->
+      <section id="game-screen" class="screen game-screen" aria-label="Arena Permainan" hidden>
+        <header class="game-topbar">
+          <div class="topbar-brand">
+            <span class="brand-mini-icon" aria-hidden="true">🕌</span>
+            <span class="brand-mini-title">Sahabat Salat</span>
+          </div>
+
+          <div class="topbar-status" id="topbar-turn-chip">
+            <span id="topbar-turn-text">Giliran Pemain 1</span>
+          </div>
+
+          <div class="topbar-controls">
+            <div class="volume-control-wrap">
+              <button type="button" id="game-mute-btn" class="hud-icon-btn" title="Matikan/Nyalakan Suara" aria-label="Toggle Suara">
+                🔊
+              </button>
+              <input
+                type="range"
+                id="volume-slider"
+                class="volume-slider"
+                min="0"
+                max="100"
+                value="70"
+                aria-label="Volume Audio"
+              />
+            </div>
+            <button type="button" id="open-guide-game-btn" class="hud-text-btn" title="Lihat 13 Rukun Salat">
+              📖 <span class="hide-xs">13 Rukun</span>
+            </button>
+            <button type="button" id="restart-game-btn" class="hud-text-btn" title="Mulai Ulang">
+              ↻ <span class="hide-xs">Ulang</span>
+            </button>
+            <button type="button" id="back-to-lobby-btn" class="hud-text-btn" title="Kembali ke Menu">
+              🏠 <span class="hide-xs">Menu</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="game-layout">
+          <!-- LEFT / CENTER: 10x10 BOARD STAGE -->
+          <div class="board-stage">
+            <div id="board-frame" class="board-frame">
+              <div id="board-container" class="board-container">
+                <!-- 100 Tiles Grid -->
+                <div id="board-grid" class="board-grid" role="grid" aria-label="Papan Ular Tangga 10 kali 10"></div>
+
+                <!-- SVG Layer for Ladders & Snakes -->
+                <svg
+                  id="board-svg"
+                  class="board-svg"
+                  viewBox="0 0 1000 1000"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#022c22" flood-opacity="0.32" />
+                    </filter>
+                    <filter id="ladderGlow" x="-40%" y="-40%" width="180%" height="180%">
+                      <feGaussianBlur stdDeviation="8" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <g id="ladders-layer"></g>
+                  <g id="snakes-layer"></g>
+                </svg>
+
+                <!-- Player Tokens Layer -->
+                <div id="tokens-layer" class="tokens-layer"></div>
+
+                <!-- Particle Canvas Overlay -->
+                <canvas id="particles-canvas" class="particles-canvas"></canvas>
+
+                <!-- 3D Flying Dice Board Projection Overlay -->
+                <div id="dice-board-overlay" class="dice-board-overlay" aria-hidden="true">
+                  <div id="dice-shadow" class="dice-shadow"></div>
+                  <div id="flying-dice-wrapper" class="flying-dice-wrapper">
+                    <div id="dice-cube" class="dice-cube">
+                      <div class="dice-face face-1" data-face="1"></div>
+                      <div class="dice-face face-2" data-face="2"></div>
+                      <div class="dice-face face-3" data-face="3"></div>
+                      <div class="dice-face face-4" data-face="4"></div>
+                      <div class="dice-face face-5" data-face="5"></div>
+                      <div class="dice-face face-6" data-face="6"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Floating Event Banner on Board -->
+                <div id="board-banner" class="board-banner" aria-live="polite" hidden>
+                  <span id="board-banner-icon" class="board-banner-icon"></span>
+                  <span id="board-banner-text" class="board-banner-text"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT / BOTTOM: MOBILE-GAME HUD -->
+          <aside class="game-hud">
+            <!-- Active Player & Dice Action Card -->
+            <div class="hud-card turn-dice-card">
+              <div class="active-turn-header">
+                <div id="hud-active-avatar" class="hud-active-avatar"></div>
+                <div class="hud-active-info">
+                  <span class="hud-turn-kicker">Giliran Aktif</span>
+                  <h2 id="hud-active-name" class="hud-active-name">Pemain 1</h2>
+                  <p id="hud-status-msg" class="hud-status-msg">Siap melempar dadu!</p>
+                </div>
+                <div class="last-roll-badge" id="last-roll-badge">
+                  <span class="last-roll-label">Dadu</span>
+                  <span id="last-roll-value" class="last-roll-num">-</span>
+                </div>
+              </div>
+
+              <div class="dice-action-row">
+                <div id="dock-dice-preview" class="dock-dice-preview" aria-hidden="true">
+                  <div id="mini-dice-face" class="mini-dice-face" data-val="6"></div>
+                </div>
+                <button type="button" id="roll-dice-btn" class="btn-primary-game btn-roll">
+                  <span class="roll-btn-icon" aria-hidden="true">🎲</span>
+                  <span id="roll-btn-label">Lempar Dadu</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Players Scoreboard Roster -->
+            <div class="hud-card roster-card">
+              <div class="roster-header">
+                <h3 class="roster-title">Para Petualang</h3>
+                <span id="turn-counter-text" class="turn-counter">Putaran 1</span>
+              </div>
+              <div id="players-roster" class="players-roster"></div>
+            </div>
+
+            <!-- Mini Legend -->
+            <div class="hud-legend">
+              <span class="legend-chip"><i class="dot dot-ladder"></i> Tangga Naik</span>
+              <span class="legend-chip"><i class="dot dot-snake"></i> Ular Turun</span>
+              <span class="legend-chip"><i class="dot dot-quiz"></i> Bintang Kuis</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ==================== QUIZ MODAL ==================== -->
+      <div id="quiz-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="quiz-title" hidden>
+        <div class="modal-card quiz-card">
+          <div class="quiz-header">
+            <span id="quiz-type-badge" class="quiz-type-label">Pilihan Ganda</span>
+            <span id="quiz-points-badge" class="quiz-points-label">+25 Poin</span>
+          </div>
+
+          <h2 id="quiz-title" class="quiz-question">Pertanyaan</h2>
+
+          <!-- Optional Prayer Movement Illustration (for Tebak Gerakan Salat) -->
+          <div id="quiz-illustration" class="quiz-illustration" hidden></div>
+
+          <!-- Dynamic Answer Area -->
+          <div id="quiz-options-area" class="quiz-options-area"></div>
+
+          <!-- Ordering Controls (for Susun Urutan) -->
+          <div id="quiz-order-controls" class="quiz-order-controls" hidden>
+            <button type="button" id="order-reset-btn" class="btn-secondary-game">↺ Ulangi Urutan</button>
+            <button type="button" id="order-submit-btn" class="btn-primary-game" disabled>Periksa Jawaban</button>
+          </div>
+
+          <!-- Feedback & Pembahasan -->
+          <div id="quiz-feedback" class="quiz-feedback" hidden>
+            <div class="feedback-head">
+              <span id="feedback-icon" class="feedback-icon"></span>
+              <strong id="feedback-title" class="feedback-title"></strong>
+            </div>
+            <p id="feedback-explanation" class="feedback-explanation"></p>
+            <button type="button" id="quiz-continue-btn" class="btn-primary-game btn-continue">
+              Lanjutkan Permainan ▶
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 13 RUKUN SALAT GUIDE MODAL ==================== -->
+      <div id="guide-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="guide-title" hidden>
+        <div class="modal-card guide-card">
+          <div class="modal-top">
+            <div>
+              <p class="modal-kicker">Materi Belajar · Mazhab Syafi'i</p>
+              <h2 id="guide-title" class="modal-title">13 Rukun Salat</h2>
+            </div>
+            <button type="button" id="close-guide-btn" class="modal-close-btn" aria-label="Tutup Panduan">✕</button>
+          </div>
+          <p class="guide-intro">
+            Rukun salat adalah bagian inti dalam salat yang wajib dikerjakan. Jika salah satu rukun tertinggal dengan sengaja, salat menjadi tidak sah.
+          </p>
+          <div id="guide-list" class="guide-list"></div>
+        </div>
+      </div>
+
+      <!-- ==================== LEADERBOARD MODAL ==================== -->
+      <div id="leaderboard-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+        <div class="modal-card leaderboard-card">
+          <div class="modal-top">
+            <div>
+              <p class="modal-kicker">Rekam Jejak Offline</p>
+              <h2 id="lb-title" class="modal-title">Papan Skor Sahabat</h2>
+            </div>
+            <button type="button" id="close-lb-btn" class="modal-close-btn" aria-label="Tutup Papan Skor">✕</button>
+          </div>
+          <div id="leaderboard-list" class="leaderboard-list"></div>
+          <div class="leaderboard-footer">
+            <button type="button" id="clear-lb-btn" class="btn-secondary-game">Hapus Riwayat Skor</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VICTORY MODAL ==================== -->
+      <div id="victory-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="victory-title" hidden>
+        <div class="modal-card victory-card">
+          <div class="victory-trophy" aria-hidden="true">🏆</div>
+          <p class="victory-kicker">Alhamdulillah! Finis Tercapai</p>
+          <h2 id="victory-title" class="victory-title">Pemenang Permainan</h2>
+          <div id="victory-winner-spot" class="victory-winner-spot"></div>
+          <div id="victory-standings" class="victory-standings"></div>
+          <div class="victory-actions">
+            <button type="button" id="play-again-btn" class="btn-primary-game">Main Lagi 🎲</button>
+            <button type="button" id="victory-menu-btn" class="btn-secondary-game">Menu Utama</button>
+          </div>
+        </div>
+      </div>
+      <!-- ==================== INSTALL GUIDE MODAL ==================== -->
+      <div id="install-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="install-title" hidden>
+        <div class="modal-card guide-card">
+          <div class="modal-top">
+            <div>
+              <p class="modal-kicker">Aplikasi Android & iOS</p>
+              <h2 id="install-title" class="modal-title">Pasang Sahabat Salat</h2>
+            </div>
+            <button type="button" id="close-install-btn" class="modal-close-btn" aria-label="Tutup Panduan Pasang">✕</button>
+          </div>
+          <div id="install-guide-body" class="guide-list"></div>
+        </div>
+      </div>
+
+      <!-- Offline Mode Banner -->
+      <div id="offline-indicator" class="offline-toast" hidden>
+        <span>Mode Offline · Semua fitur game tetap berjalan lancar</span>
+      </div>
+    </div>
+
+    <script type="module" src="/game.js"></script>
+  </body>
+</html>
